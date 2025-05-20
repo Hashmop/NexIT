@@ -1,6 +1,9 @@
 # NexIT Portfolio Website
 
 Welcome to **NexIT**, my personal portfolio website showcasing freelance IT & web solutions. Everything is contained in a single `index.html` file for simplicity and ease of deployment.
+
+---
+
 ![NexIT Homepage](assets/images/home-page.png)  
 *Figure 1. NexIT homepage screenshot.*
 
