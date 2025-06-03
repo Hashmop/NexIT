@@ -185,10 +185,11 @@
     .hero p{
       font-size: 1.2rem;
       max-width: 600px;
-      margin-bottom: 2rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      animation: fadeInUp 1s ease-out 0.2s both;
+      margin: 0 auto 2rem auto;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  animation: fadeInUp 1s ease-out 0.2s both;
+  text-align: center;
     }
 
     .cta-buttons{
@@ -312,10 +313,10 @@
       padding: 2rem;
       border-radius: var(--border-radius);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: var(--transition);
+       transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       position: relative;
       overflow: hidden;
-      transform: translateY(50px);
       opacity: 0;
     }
 
@@ -335,10 +336,10 @@
     }
 
     .card:hover{
-      transform: translateY(-10px);
-      box-shadow: var(--shadow);
-      border-color: rgba(102, 126, 234, 0.3);
-    }
+  transform: translateY(-15px) rotateY(5deg);
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+  border-color: rgba(102, 126, 234, 0.5);
+}
 
     .card.visible{
       transform: translateY(0);
@@ -850,15 +851,16 @@
 
     /* ==== SCROLL INDICATOR ==== */
     .scroll-indicator{
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 4px;
-      background: var(--primary-gradient);
-      z-index: 1001;
-      transition: width 0.3s ease;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 6px;
+  background: var(--primary-gradient);
+  z-index: 1001;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
 
     /* ==== ANIMATIONS ==== */
     @keyframes fadeInUp{
@@ -1017,6 +1019,13 @@
   <section id="demo">
     <h2 class="section-title">Live Demonstrations</h2>
     <div class="demo-container">
+	<div class="demo-item">
+        <iframe src="https://energyforces.vercel.app/" title="EnergyForce Demo" loading="lazy"></iframe>
+        <div class="demo-info">
+          <h3>EnergyForce Platform</h3>
+          <p>Advanced energy management system with real-time monitoring, predictive analytics, and smart grid integration capabilities.</p>
+        </div>
+      </div>
       <div class="demo-item">
         <iframe src="https://arise-self.vercel.app" title="Productivity OS Demo" loading="lazy"></iframe>
         <div class="demo-info">
@@ -1024,13 +1033,7 @@
           <p>A comprehensive productivity suite built with React and Tailwind CSS, featuring real-time collaboration and AI-powered task management.</p>
         </div>
       </div>
-      <div class="demo-item">
-        <iframe src="https://energyforces.vercel.app/" title="EnergyForce Demo" loading="lazy"></iframe>
-        <div class="demo-info">
-          <h3>EnergyForce Platform</h3>
-          <p>Advanced energy management system with real-time monitoring, predictive analytics, and smart grid integration capabilities.</p>
-        </div>
-      </div>
+      
     </div>
   </section>
 
@@ -1439,16 +1442,17 @@
     let ticking = false;
     
     function updateParallax() {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('.hero');
-      
-      parallaxElements.forEach(element => {
-        const speed = 0.5;
-        element.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-      
-      ticking = false;
-    }
+  const scrolled = window.pageYOffset;
+  const parallaxElements = document.querySelectorAll('.hero::before');
+  
+  // Only apply parallax to background, not content
+  if (scrolled < window.innerHeight) {
+    const speed = 0.3;
+    document.querySelector('.hero').style.backgroundPosition = `center ${scrolled * speed}px`;
+  }
+  
+  ticking = false;
+}
 
     function requestTick() {
       if (!ticking) {
@@ -1478,14 +1482,16 @@
 
     // Add some interactive micro-animations
     document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px) scale(1.02)';
-      });
-      
-      btn.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-      });
-    });
+  btn.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-5px) scale(1.03)';
+    this.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.4)';
+  });
+  
+  btn.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0) scale(1)';
+    this.style.boxShadow = 'var(--shadow)';
+  });
+});
 
     // Initialize animations on load
     window.addEventListener('load', () => {
